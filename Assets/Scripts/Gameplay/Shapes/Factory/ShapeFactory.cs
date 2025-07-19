@@ -23,9 +23,10 @@ namespace Gameplay.Shapes.Factory
         
         public Shape Create(ShapeType type, Vector3 position, float speed)
         {
-            var shape = _pool.Get();
+            Shape shape = _pool.Get();
             shape.transform.position = position;
             shape.Initialize(type, speed, _eventBus);
+            
             return shape;
         }
         

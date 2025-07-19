@@ -22,13 +22,18 @@ namespace Gameplay.Health
 
         public void TakeDamage(int amount)
         {
-            if (!IsAlive) return;
+            if (!IsAlive)
+            {
+                return;
+            }
 
             _currentHealth = Mathf.Max(0, _currentHealth - amount);
             _eventBus.Publish(new HealthChangedEvent(_currentHealth));
 
             if (_currentHealth <= 0)
+            {
                 _eventBus.Publish(new PlayerDefeatedEvent());
+            }
         }
 
         public void Reset()
