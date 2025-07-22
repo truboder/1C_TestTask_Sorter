@@ -1,25 +1,33 @@
+using Common.Coroutines;
+using Common.Events;
 using Common.StateMachine;
 using Gameplay.Health;
 using Gameplay.Scoring;
 using Gameplay.Shapes;
-using Infrastructure.StateMachine.States;
+using Gameplay.Shapes.Factory;
+using Gameplay.StaticData;
+using UnityEngine;
 using Zenject;
 
 namespace Infrastructure.Installers
 {
     public class EntryPointInstaller : MonoInstaller
     {
+        [SerializeField] private GameSettings _gameSettings;
+        [SerializeField] private Shape _shapePrefab;
+        
         public override void InstallBindings()
         {
+            Debug.Log("EntryPointInstaller is running.");
             Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<EntryPoint>().AsSingle().NonLazy();
-
-            var gameStateMachine = Container.Resolve<IGameStateMachine>();
-            gameStateMachine.AddState(new BootstrapState(gameStateMachine));
-            gameStateMachine.AddState(new MainMenuState(gameStateMachine));
-            gameStateMachine.AddState(new GameplayState(gameStateMachine, Container.Resolve<HealthService>(), Container.Resolve<ScoreService>(), Container.Resolve<SpawnSystem>()));
-            gameStateMachine.AddState(new WinState(gameStateMachine));
-            gameStateMachine.AddState(new LoseState(gameStateMachine));
+            Container.BindInterfacesAndSelfTo<EventBus>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<CoroutineRunService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<GameSettings>().FromInstance(_gameSettings).AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<HealthService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<ScoreService>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<ShapeFactory>().AsSingle().WithArguments(_shapePrefab).NonLazy();
+            Container.BindInterfacesAndSelfTo<SpawnSystem>().AsSingle().NonLazy();
         }
     }
 }

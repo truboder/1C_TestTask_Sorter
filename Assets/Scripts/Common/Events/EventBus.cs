@@ -27,7 +27,7 @@ namespace Common.Events
 
         public void Publish<T>(T eventData)
         {
-            if (!_subscribers.TryGetValue(typeof(T), out var handlers))
+            if (_subscribers.TryGetValue(typeof(T), out var handlers))
             {
                 foreach (var handler in handlers)
                 {

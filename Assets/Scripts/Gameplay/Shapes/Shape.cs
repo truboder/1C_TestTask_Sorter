@@ -29,12 +29,11 @@ namespace Gameplay.Shapes
                 return;
             }
             
-            transform.position += Vector3.right * _speed * Time.deltaTime;
+            transform.position += Vector3.right * (_speed * Time.deltaTime);
 
             if (transform.position.x > 10f)
             {
                 _eventBus.Publish(new ShapeMissedEvent(this));
-                gameObject.SetActive(false);
             }
         }
 
@@ -52,13 +51,11 @@ namespace Gameplay.Shapes
         public void OnSortedCorrectly()
         {
             _eventBus.Publish(new ShapeSortedCorrectlyEvent(this));
-            gameObject.SetActive(false);
         }
 
         public void OnSortedIncorrectly()
         {
             _eventBus.Publish(new ShapeSortedIncorrectlyEvent(this));
-            gameObject.SetActive(false);
         }
     }
 }

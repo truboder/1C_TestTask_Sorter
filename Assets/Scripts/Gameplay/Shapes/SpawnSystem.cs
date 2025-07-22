@@ -1,5 +1,5 @@
 using System.Collections;
-using Common.Corountines;
+using Common.Coroutines;
 using Common.Events;
 using Cysharp.Threading.Tasks;
 using Gameplay.Shapes.Factory;

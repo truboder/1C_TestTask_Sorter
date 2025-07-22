@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Common.Corountines
+namespace Common.Coroutines
 {
     public class CoroutineHolder : MonoBehaviour {}
 }

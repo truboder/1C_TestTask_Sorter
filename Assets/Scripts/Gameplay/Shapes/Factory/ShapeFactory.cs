@@ -26,12 +26,14 @@ namespace Gameplay.Shapes.Factory
             Shape shape = _pool.Get();
             shape.transform.position = position;
             shape.Initialize(type, speed, _eventBus);
+            shape.gameObject.SetActive(true);
             
             return shape;
         }
         
         public void Return(Shape shape)
         {
+            shape.gameObject.SetActive(false);
             _pool.Return(shape);
         }
     }

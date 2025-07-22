@@ -1,7 +1,7 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
-namespace Common.Corountines
+namespace Common.Coroutines
 {
     public class CoroutineRunService : ICoroutineRunService
     {
@@ -17,5 +17,7 @@ namespace Common.Corountines
         public Coroutine StartCoroutine(IEnumerator routine) =>  _coroutineHolder.StartCoroutine(routine);
         
         public void StopCoroutine(Coroutine routine) =>  _coroutineHolder.StopCoroutine(routine);
+        
+        public void Dispose() => Object.Destroy(_coroutineHolder.gameObject);
     }
 }

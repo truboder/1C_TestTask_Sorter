@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Common.StateMachine
 {
-    public abstract class BaseState : MonoBehaviour
+    public abstract class BaseState
     {
         protected readonly IGameStateMachine StateMachine;
 
@@ -13,7 +13,6 @@ namespace Common.StateMachine
         
         public abstract void Enter();
         public abstract void Update();
-        
         public abstract void Exit();
     }
 }
